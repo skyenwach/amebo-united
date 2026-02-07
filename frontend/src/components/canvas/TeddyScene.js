@@ -1,7 +1,6 @@
 import React, { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Text, Float, Environment } from '@react-three/drei';
-import * as THREE from 'three';
+import { Float, Environment, Html } from '@react-three/drei';
 
 // Teddy Bear built with primitives
 const TeddyBear = ({ onClick }) => {
