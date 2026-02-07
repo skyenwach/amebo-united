@@ -10,7 +10,7 @@ export const SuccessScreen = ({ name = 'Koco' }) => {
     
     try {
       const canvas = await html2canvas(cardRef.current, {
-        backgroundColor: '#FFF5F7',
+        backgroundColor: '#1a1a1a',
         scale: 2,
         useCORS: true
       });
@@ -26,26 +26,38 @@ export const SuccessScreen = ({ name = 'Koco' }) => {
 
   return (
     <motion.div
-      className="min-h-screen flex flex-col items-center justify-center p-6"
+      className="fixed inset-0 flex flex-col items-center justify-center p-6"
+      style={{
+        background: 'linear-gradient(180deg, #1a1a1a 0%, #2d1f1f 50%, #1a1a1a 100%)'
+      }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
       data-testid="success-screen"
     >
+      {/* Warm glow */}
+      <div 
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse at center, rgba(231, 76, 60, 0.15) 0%, transparent 60%)'
+        }}
+      />
+      
       {/* Success card */}
       <motion.div
         ref={cardRef}
-        className="relative bg-white/90 backdrop-blur-sm rounded-3xl p-8 sm:p-12 shadow-2xl max-w-md w-full text-center"
-        initial={{ scale: 0.8, y: 20 }}
+        className="relative rounded-3xl p-8 sm:p-12 max-w-md w-full text-center"
+        style={{
+          background: 'linear-gradient(180deg, #FFFEF5 0%, #FFF8E7 100%)',
+          boxShadow: '0 30px 100px rgba(0,0,0,0.5), 0 0 60px rgba(231, 76, 60, 0.15)'
+        }}
+        initial={{ scale: 0.8, y: 30 }}
         animate={{ scale: 1, y: 0 }}
         transition={{ 
           type: 'spring', 
           stiffness: 100, 
           damping: 15,
           delay: 0.2 
-        }}
-        style={{
-          boxShadow: '0 25px 60px -15px rgba(255,107,107,0.4)'
         }}
       >
         {/* Celebration hearts */}
@@ -56,16 +68,16 @@ export const SuccessScreen = ({ name = 'Koco' }) => {
               initial={{ scale: 0, rotate: -180 }}
               animate={{ scale: 1, rotate: 0 }}
               transition={{ 
-                delay: 0.5 + i * 0.1,
+                delay: 0.5 + i * 0.08,
                 type: 'spring',
                 stiffness: 200
               }}
             >
               <svg 
                 viewBox="0 0 24 24" 
-                fill="#FF6B6B" 
+                fill="#E74C3C" 
                 className="w-5 h-5 sm:w-6 sm:h-6"
-                style={{ opacity: 0.7 + (i % 3) * 0.1 }}
+                style={{ opacity: 0.6 + (i % 3) * 0.15 }}
               >
                 <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
               </svg>
@@ -75,7 +87,7 @@ export const SuccessScreen = ({ name = 'Koco' }) => {
         
         {/* Main message */}
         <motion.h1
-          className="font-script text-4xl sm:text-5xl text-[#5D4037] mb-4"
+          className="font-script text-5xl sm:text-6xl text-[#5D4037] mb-3"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8 }}
@@ -84,7 +96,7 @@ export const SuccessScreen = ({ name = 'Koco' }) => {
         </motion.h1>
         
         <motion.p
-          className="font-script text-2xl sm:text-3xl text-[#FF6B6B] mb-6"
+          className="font-script text-2xl sm:text-3xl text-[#E74C3C] mb-6"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1 }}
@@ -94,7 +106,8 @@ export const SuccessScreen = ({ name = 'Koco' }) => {
         
         {/* Decorative line */}
         <motion.div
-          className="w-24 h-1 bg-gradient-to-r from-transparent via-[#FFD1DC] to-transparent mx-auto mb-6"
+          className="w-24 h-0.5 mx-auto mb-6"
+          style={{ background: 'linear-gradient(90deg, transparent, #E74C3C, transparent)' }}
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ delay: 1.2, duration: 0.5 }}
@@ -102,7 +115,7 @@ export const SuccessScreen = ({ name = 'Koco' }) => {
         
         {/* Sweet message */}
         <motion.p
-          className="font-body text-[#5D4037]/80 text-sm sm:text-base"
+          className="font-body text-[#5D4037]/70 text-sm sm:text-base"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.4 }}
@@ -113,10 +126,10 @@ export const SuccessScreen = ({ name = 'Koco' }) => {
       
       {/* Save button */}
       <motion.button
-        className="mt-8 font-body text-sm text-[#5D4037]/70 hover:text-[#5D4037] 
-                   bg-white/60 hover:bg-white/80 backdrop-blur-sm px-6 py-3 rounded-full
-                   transition-all shadow-md hover:shadow-lg
-                   focus:outline-none focus:ring-2 focus:ring-[#FF6B6B]"
+        className="mt-8 font-body text-sm text-white/60 hover:text-white/90 
+                   bg-white/10 hover:bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full
+                   transition-all border border-white/10
+                   focus:outline-none focus:ring-2 focus:ring-[#E74C3C]/50"
         onClick={handleSave}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
