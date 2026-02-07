@@ -136,17 +136,21 @@ const TeddyBear = ({ onClick }) => {
           <meshStandardMaterial color="#FF6B6B" roughness={0.5} />
         </mesh>
         
-        {/* Click me text */}
-        <Text
+        {/* Click me text using Html */}
+        <Html
           position={[0, -0.05, 0.03]}
-          fontSize={0.08}
-          color="#5D4037"
-          font="https://fonts.gstatic.com/s/dancingscript/v25/If2cXTr6YS-zF4S-kcSWSVi_sxjsohD9F50Ruu7BMSo3Sup6hNX6plRP.woff"
-          anchorX="center"
-          anchorY="middle"
+          center
+          style={{
+            fontSize: '14px',
+            fontFamily: "'Dancing Script', cursive",
+            color: '#5D4037',
+            whiteSpace: 'nowrap',
+            pointerEvents: 'none',
+            userSelect: 'none'
+          }}
         >
           Click me
-        </Text>
+        </Html>
       </group>
     </group>
   );
