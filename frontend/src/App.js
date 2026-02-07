@@ -183,9 +183,7 @@ function App() {
                 <motion.div
                   className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 cursor-pointer"
                   onClick={handleEnvelopeClick}
-                  animate={!reducedMotion ? { y: [0, -4, 0], rotate: [0, 2, -2, 0] } : {}}
-                  transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
-                  whileHover={{ scale: 1.08 }}
+                  whileHover={{ scale: 1.08, y: -5 }}
                   whileTap={{ scale: 0.95 }}
                   role="button"
                   aria-label="Click to open Valentine's letter"
