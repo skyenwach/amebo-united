@@ -52,7 +52,7 @@ export const Landing3D = ({ onProceed }) => {
               className="font-body text-sm text-[#5D4037] bg-white/60 backdrop-blur-sm px-4 py-2 rounded-full"
               aria-hidden="true"
             >
-              Tap the teddy 💕
+              Tap the teddy to open the letter 💕
             </p>
           </motion.div>
           
