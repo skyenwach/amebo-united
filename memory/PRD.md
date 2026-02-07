@@ -23,20 +23,23 @@ Build a single-page Valentine invitation website for girlfriend "Koco" with:
 - Accessibility features
 
 ## What's Been Implemented (Feb 7, 2026)
-✅ Animated 2D teddy bear with breathing animation
-✅ Envelope holding "Click me" text
-✅ Floating hearts background particles
-✅ Skip button for accessibility
-✅ Envelope opening + card unfolding animation
-✅ "Will you be my Valentine?" card with Koco's name
-✅ Yes button with coral gradient styling
-✅ No button that dodges on hover/touch
-✅ "Nice try 😌" caption on No hover
-✅ Confetti celebration (mixed hearts + shapes)
+### Version 2 - Premium Redesign
+✅ Realistic teddy bear image (life-like plush holding red heart)
+✅ Dark warm romantic background with ambient glow
+✅ Floating heart particles animation
+✅ Envelope with cream vintage paper texture
+✅ Paper unfolding animation with dark backdrop
+✅ Large paper card covering screen
+✅ Vintage paper texture overlay
+✅ Text: "Koco, my love, will you be my Valentine?"
+✅ Placeholder image area for custom image
+✅ Premium Yes button with red gradient + shimmer effect
+✅ Dodging No button with "Nice try 😌"
+✅ Confetti celebration with hearts
 ✅ Success screen "Yay! Happy Valentine's, Koco 💗"
 ✅ Save this moment screenshot download
-✅ prefers-reduced-motion support
 ✅ Mobile responsive (375px+)
+✅ Skip button and accessibility support
 
 ## Tech Stack
 - React 19
