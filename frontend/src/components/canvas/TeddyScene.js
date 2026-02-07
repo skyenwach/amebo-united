@@ -1,6 +1,5 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useMemo, Suspense } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Float, Environment } from '@react-three/drei';
 
 // Teddy Bear built with primitives
 const TeddyBear = ({ onClick }) => {
@@ -140,10 +139,34 @@ const TeddyBear = ({ onClick }) => {
   );
 };
 
-// Floating hearts in 3D
+// Floating hearts in 3D - simple version
+const FloatingHeart = ({ position, scale, rotationSpeed }) => {
+  const meshRef = useRef();
+  
+  useFrame((state) => {
+    if (meshRef.current) {
+      const t = state.clock.elapsedTime;
+      meshRef.current.position.y = position[1] + Math.sin(t * rotationSpeed) * 0.3;
+      meshRef.current.rotation.z = Math.sin(t * rotationSpeed * 0.5) * 0.2;
+    }
+  });
+  
+  return (
+    <mesh ref={meshRef} position={position} scale={scale}>
+      <sphereGeometry args={[1, 16, 16]} />
+      <meshStandardMaterial 
+        color="#FFD1DC" 
+        transparent 
+        opacity={0.4}
+        roughness={1}
+      />
+    </mesh>
+  );
+};
+
 const FloatingHearts3D = () => {
   const hearts = useMemo(() => {
-    return Array.from({ length: 15 }, (_, i) => ({
+    return Array.from({ length: 12 }, (_, i) => ({
       id: i,
       position: [
         (Math.random() - 0.5) * 6,
@@ -151,30 +174,19 @@ const FloatingHearts3D = () => {
         -2 - Math.random() * 3
       ],
       scale: 0.05 + Math.random() * 0.1,
-      speed: 0.5 + Math.random() * 0.5
+      rotationSpeed: 0.5 + Math.random() * 0.5
     }));
   }, []);
 
   return (
     <>
       {hearts.map((heart) => (
-        <Float
+        <FloatingHeart
           key={heart.id}
-          speed={heart.speed}
-          rotationIntensity={0.5}
-          floatIntensity={1}
           position={heart.position}
-        >
-          <mesh scale={heart.scale}>
-            <sphereGeometry args={[1, 16, 16]} />
-            <meshStandardMaterial 
-              color="#FFD1DC" 
-              transparent 
-              opacity={0.4}
-              roughness={1}
-            />
-          </mesh>
-        </Float>
+          scale={heart.scale}
+          rotationSpeed={heart.rotationSpeed}
+        />
       ))}
     </>
   );
@@ -186,15 +198,16 @@ export const TeddyScene = ({ onTeddyClick, reducedMotion = false }) => {
       camera={{ position: [0, 0, 4], fov: 50 }}
       style={{ background: 'transparent' }}
     >
-      <ambientLight intensity={0.6} />
-      <directionalLight position={[5, 5, 5]} intensity={0.8} />
-      <directionalLight position={[-5, 3, 3]} intensity={0.3} color="#FFD1DC" />
-      
-      {!reducedMotion && <FloatingHearts3D />}
-      
-      <TeddyBear onClick={onTeddyClick} />
-      
-      <Environment preset="apartment" />
+      <Suspense fallback={null}>
+        <ambientLight intensity={0.7} />
+        <directionalLight position={[5, 5, 5]} intensity={0.9} />
+        <directionalLight position={[-5, 3, 3]} intensity={0.4} color="#FFD1DC" />
+        <pointLight position={[0, 2, 2]} intensity={0.3} color="#FFFDD0" />
+        
+        {!reducedMotion && <FloatingHearts3D />}
+        
+        <TeddyBear onClick={onTeddyClick} />
+      </Suspense>
     </Canvas>
   );
 };
