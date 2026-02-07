@@ -1,0 +1,127 @@
+{
+  "identity": {
+    "name": "E1",
+    "mission": "Create a Valentine experience that feels handcrafted, intimate, and surprisingly premium. Reject generic 'landing page' tropes.",
+    "principles": [
+      "Fusion over Imitation: Mix 'Pixar-cute' 3D with 'High-end Stationery' textures.",
+      "Emotion First: Every click must feel like a heartbeat or a hug.",
+      "Content is King: The 'reveal' is the story. Pace it.",
+      "Negative Space: Let the teddy and the envelope breathe."
+    ]
+  },
+  "visual_identity": {
+    "theme_name": "Blush & Bone",
+    "colors": {
+      "palette": {
+        "primary": "#FFD1DC", 
+        "primary_foreground": "#5D4037",
+        "secondary": "#FFFDD0",
+        "secondary_foreground": "#5D4037",
+        "accent": "#FF6B6B",
+        "background": "#FFF5F7",
+        "foreground": "#4A4A4A",
+        "card": "#FFFFFF",
+        "border": "#F8C3CD"
+      },
+      "usage": {
+        "background": "Use a subtle gradient from #FFF5F7 to #FFD1DC (top to bottom).",
+        "text": "Never use pure black. Use Warm Charcoal (#4A4A4A) or Deep Cocoa (#5D4037).",
+        "buttons": "Primary 'Yes' button should be Deep Pink or Red (#FF6B6B) with White text. 'No' button ghost style."
+      }
+    },
+    "typography": {
+      "heading": {
+        "font_family": "\"Dancing Script\", cursive",
+        "description": "Playful, romantic, handwritten feel. Use for big reveals and names.",
+        "install_url": "https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap"
+      },
+      "body": {
+        "font_family": "\"Nunito\", sans-serif",
+        "description": "Round, soft, legible. Matches the teddy bear's curves.",
+        "install_url": "https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap"
+      }
+    },
+    "visual_enhancers": {
+      "textures": [
+        {
+          "type": "background_grain",
+          "url": "https://images.unsplash.com/photo-1695131021220-2f3514baaf9e?crop=entropy&cs=srgb&fm=jpg&q=85",
+          "css_rule": "mix-blend-mode: multiply; opacity: 0.4;"
+        }
+      ],
+      "shadows": "Soft, diffuse colored shadows. e.g., shadow-[0_10px_40px_-10px_rgba(255,107,107,0.3)]",
+      "radius": "Everything must be rounded. Buttons: rounded-full. Cards: rounded-3xl."
+    }
+  },
+  "layout_strategy": {
+    "type": "Single Page Interactive Flow",
+    "z_index_hierarchy": {
+      "background": 0,
+      "canvas_3d": 10,
+      "ui_overlay": 20,
+      "envelope_modal": 30,
+      "confetti": 50
+    },
+    "spacing": {
+      "base": "Generous. The envelope needs empty space around it to 'unfold' without cramping.",
+      "mobile": "Ensure 3D teddy is fully visible on mobile (adjust camera FOV)."
+    }
+  },
+  "components": [
+    {
+      "name": "TeddyScene (3D)",
+      "path": "/app/frontend/src/components/canvas/TeddyScene.js",
+      "library": "react-three-fiber",
+      "description": "A procedural 3D teddy bear. DO NOT load an external model (too risky). Build it with primitives.",
+      "implementation_guide": {
+        "shapes": "Head: Sphere. Ears: Small Spheres. Body: Oval/Sphere. Limbs: Cylinders/Capsules.",
+        "material": "StandardMaterial with 'velvet' feel (roughness: 1, color: #D7B59C).",
+        "animation": "Idle breathing (scale Y slightly) + Head subtle rotation following mouse/gyro.",
+        "interaction": "On click, trigger 'EnvelopePhase' transition."
+      }
+    },
+    {
+      "name": "EnvelopeReveal",
+      "path": "/app/frontend/src/components/EnvelopeReveal.js",
+      "library": "framer-motion",
+      "description": "The core interaction. An envelope that opens, slides out a letter, and unfolds it.",
+      "implementation_guide": {
+        "states": ["closed", "flap_open", "slide_out", "unfolded"],
+        "tech": "Use `motion.div` for the envelope parts (body, flap, letter). Use `layoutId` or simple variants.",
+        "details": "The letter should have a paper texture background."
+      }
+    },
+    {
+      "name": "YesNoInteraction",
+      "path": "/app/frontend/src/components/YesNoInteraction.js",
+      "description": "The final question. 'No' button runs away.",
+      "implementation_guide": {
+        "yes_action": "Trigger confetti, show 'Yay' message.",
+        "no_action": "On hover/tap, randomly translate X/Y to dodge cursor. Make it fast but winnable if you really try (or impossible, your call - simpler is better).",
+        "confetti": "Use `canvas-confetti` library."
+      }
+    }
+  ],
+  "motion_guidelines": {
+    "transitions": "Spring animations (stiffness: 100, damping: 20). No linear eases.",
+    "hover": "Scale 1.05 on interactive elements.",
+    "reveal": "Stagger children delay: 0.1s."
+  },
+  "image_assets": {
+    "paper_texture": "https://images.unsplash.com/photo-1695131021220-2f3514baaf9e?crop=entropy&cs=srgb&fm=jpg&q=85",
+    "hearts_bg": "Use CSS radial gradients or a simple SVG pattern for floating hearts."
+  },
+  "instructions_to_main_agent": {
+    "step_1": "Install dependencies: `three @types/three @react-three/fiber @react-three/drei framer-motion canvas-confetti lucide-react clsx tailwind-merge`.",
+    "step_2": "Setup Tailwind with the 'Blush & Bone' palette.",
+    "step_3": "Build `TeddyScene` using simple spheres. Focus on 'cute' proportions (big head, small eyes).",
+    "step_4": "Build `EnvelopeReveal` separately. Test the unfolding logic.",
+    "step_5": "Integrate into `App.js` with a state machine (intro -> reveal -> celebration).",
+    "critical": "Ensure the 'No' button logic works on Touch devices (use onClick/onTouchStart instead of just onHover)."
+  },
+  "universal_guidelines": {
+    "react_strict_mode": "Keep it enabled.",
+    "responsive": "Test styling on 375px width (iPhone SE).",
+    "accessibility": "Add aria-labels to the 3D canvas and buttons."
+  }
+}
