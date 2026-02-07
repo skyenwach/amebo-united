@@ -1,6 +1,6 @@
 import React, { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Float, Environment, Html } from '@react-three/drei';
+import { Float, Environment } from '@react-three/drei';
 
 // Teddy Bear built with primitives
 const TeddyBear = ({ onClick }) => {
@@ -27,7 +27,7 @@ const TeddyBear = ({ onClick }) => {
   });
 
   return (
-    <group ref={groupRef} onClick={onClick} style={{ cursor: 'pointer' }}>
+    <group ref={groupRef} onClick={onClick}>
       {/* Body */}
       <mesh position={[0, -0.3, 0]}>
         <sphereGeometry args={[0.7, 32, 32]} />
@@ -135,22 +135,6 @@ const TeddyBear = ({ onClick }) => {
           <sphereGeometry args={[0.06, 16, 16]} />
           <meshStandardMaterial color="#FF6B6B" roughness={0.5} />
         </mesh>
-        
-        {/* Click me text using Html */}
-        <Html
-          position={[0, -0.05, 0.03]}
-          center
-          style={{
-            fontSize: '14px',
-            fontFamily: "'Dancing Script', cursive",
-            color: '#5D4037',
-            whiteSpace: 'nowrap',
-            pointerEvents: 'none',
-            userSelect: 'none'
-          }}
-        >
-          Click me
-        </Html>
       </group>
     </group>
   );
@@ -201,8 +185,6 @@ export const TeddyScene = ({ onTeddyClick, reducedMotion = false }) => {
     <Canvas
       camera={{ position: [0, 0, 4], fov: 50 }}
       style={{ background: 'transparent' }}
-      aria-label="3D teddy bear holding an envelope"
-      role="img"
     >
       <ambientLight intensity={0.6} />
       <directionalLight position={[5, 5, 5]} intensity={0.8} />
