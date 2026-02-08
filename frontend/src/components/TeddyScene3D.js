@@ -194,21 +194,21 @@ export function TeddyScene3D({ onTeddyClick }) {
 
     // Envelope Group
     const envelopeGroup = new THREE.Group();
-    envelopeGroup.position.set(0, 0.1, 1.15);
+    envelopeGroup.position.set(0, -0.3, 1.3);
     
-    const envelopeBodyGeometry = new THREE.BoxGeometry(1.0, 0.65, 0.04);
+    const envelopeBodyGeometry = new THREE.BoxGeometry(0.9, 0.6, 0.04);
     const envelopeBody = new THREE.Mesh(envelopeBodyGeometry, envelopeMaterial);
     envelopeGroup.add(envelopeBody);
     
-    const envelopeFlapGeometry = new THREE.ConeGeometry(0.5, 0.35, 4);
+    const envelopeFlapGeometry = new THREE.ConeGeometry(0.45, 0.32, 4);
     const envelopeFlap = new THREE.Mesh(envelopeFlapGeometry, envelopeDarkMaterial);
-    envelopeFlap.position.set(0, 0.32, 0.02);
+    envelopeFlap.position.set(0, 0.3, 0.02);
     envelopeFlap.rotation.set(0, 0, Math.PI);
     envelopeGroup.add(envelopeFlap);
     
-    const heartSealGeometry = new THREE.SphereGeometry(0.1, 16, 16);
+    const heartSealGeometry = new THREE.SphereGeometry(0.09, 16, 16);
     const heartSeal = new THREE.Mesh(heartSealGeometry, heartMaterial);
-    heartSeal.position.set(0, 0.05, 0.04);
+    heartSeal.position.set(0, 0.03, 0.04);
     envelopeGroup.add(heartSeal);
     
     teddyGroup.add(envelopeGroup);
