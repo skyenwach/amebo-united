@@ -144,19 +144,19 @@ export function TeddyScene3D({ onTeddyClick }) {
     const eyeHighlightGeometry = new THREE.SphereGeometry(0.04, 16, 16);
     
     const leftEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
-    leftEye.position.set(-0.25, 1.45, 0.65);
+    leftEye.position.set(-0.25, 1.45, 0.85);
     teddyGroup.add(leftEye);
     
     const leftEyeHighlight = new THREE.Mesh(eyeHighlightGeometry, eyeHighlightMaterial);
-    leftEyeHighlight.position.set(-0.22, 1.48, 0.75);
+    leftEyeHighlight.position.set(-0.22, 1.48, 0.95);
     teddyGroup.add(leftEyeHighlight);
     
     const rightEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
-    rightEye.position.set(0.25, 1.45, 0.65);
+    rightEye.position.set(0.25, 1.45, 0.85);
     teddyGroup.add(rightEye);
     
     const rightEyeHighlight = new THREE.Mesh(eyeHighlightGeometry, eyeHighlightMaterial);
-    rightEyeHighlight.position.set(0.28, 1.48, 0.75);
+    rightEyeHighlight.position.set(0.28, 1.48, 0.95);
     teddyGroup.add(rightEyeHighlight);
 
     // Arms
