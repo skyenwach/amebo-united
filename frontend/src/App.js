@@ -146,7 +146,7 @@ function App() {
             data-testid="landing-screen"
           >
             {/* 3D Canvas - Full screen teddy bear */}
-            <div className="w-full h-[70vh] sm:h-[75vh] cursor-pointer">
+            <div className="w-full h-[60vh] sm:h-[70vh] cursor-pointer">
               <TeddyScene3D onTeddyClick={handleEnvelopeClick} />
             </div>
             
