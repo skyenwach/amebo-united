@@ -104,19 +104,19 @@ export function TeddyScene3D({ onTeddyClick }) {
     // Head
     const headGeometry = new THREE.SphereGeometry(0.75, 32, 32);
     const head = new THREE.Mesh(headGeometry, furMaterial);
-    head.position.set(0, 1.35, 0.2);
+    head.position.set(0, 1.35, 0.3);
     teddyGroup.add(head);
 
     // Snout
     const snoutGeometry = new THREE.SphereGeometry(0.32, 32, 32);
     const snout = new THREE.Mesh(snoutGeometry, furDarkMaterial);
-    snout.position.set(0, 1.15, 0.85);
+    snout.position.set(0, 1.15, 0.95);
     teddyGroup.add(snout);
 
     // Nose
     const noseGeometry = new THREE.SphereGeometry(0.12, 16, 16);
     const nose = new THREE.Mesh(noseGeometry, noseMaterial);
-    nose.position.set(0, 1.22, 1.12);
+    nose.position.set(0, 1.22, 1.22);
     teddyGroup.add(nose);
 
     // Ears
