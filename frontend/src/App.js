@@ -2,9 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import html2canvas from 'html2canvas';
-
-// Realistic teddy bear image
-const TEDDY_IMAGE = 'https://images.unsplash.com/photo-1747847386084-2b299514f40c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzd8MHwxfHNlYXJjaHw0fHxjdXRlJTIwcGx1c2glMjB0ZWRkeSUyMGJlYXIlMjBob2xkaW5nJTIwaGVhcnQlMjB2YWxlbnRpbmUlMjByb21hbnRpY3xlbnwwfHx8fDE3NzA1MDcwMzN8MA&ixlib=rb-4.1.0&q=85';
+import TeddyScene3D from './components/TeddyScene3D';
 
 const PAPER_TEXTURE = 'https://images.unsplash.com/photo-1706271952285-01b5e3fc2d78?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzN8MHwxfHNlYXJjaHwyfHxvbGQlMjBwYXBlciUyMGxldHRlciUyMHRleHR1cmUlMjBjcmVhbSUyMHZpbnRhZ2V8ZW58MHx8fHwxNzcwNTA3MDU5fDA&ixlib=rb-4.1.0&q=85';
 
@@ -66,7 +64,6 @@ function App() {
   };
 
   const handleYes = () => {
-    // Fire confetti
     const defaults = {
       startVelocity: 30,
       spread: 360,
@@ -132,118 +129,46 @@ function App() {
       <div 
         className="fixed inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at center bottom, rgba(255, 180, 120, 0.12) 0%, transparent 60%)'
+          background: 'radial-gradient(ellipse at center bottom, rgba(255, 180, 120, 0.15) 0%, transparent 60%)'
         }}
       />
 
       <AnimatePresence mode="wait">
-        {/* LANDING - Teddy with Envelope */}
+        {/* LANDING - 3D Teddy Bear */}
         {state === 'landing' && (
           <motion.div
             key="landing"
-            className="fixed inset-0 flex items-center justify-center p-4"
+            className="fixed inset-0 flex flex-col items-center justify-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, scale: 1.05 }}
             transition={{ duration: 0.6 }}
             data-testid="landing-screen"
           >
-            <motion.div
-              className="relative cursor-pointer"
-              initial={{ scale: 0.9, y: 30 }}
-              animate={{ scale: 1, y: 0 }}
-              transition={{ type: 'spring', stiffness: 80, damping: 15, delay: 0.2 }}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+            {/* 3D Canvas - Full screen teddy bear */}
+            <div className="w-full h-[70vh] sm:h-[75vh] cursor-pointer">
+              <TeddyScene3D onTeddyClick={handleEnvelopeClick} />
+            </div>
+            
+            {/* Click me label */}
+            <motion.p
+              className="font-script text-2xl sm:text-3xl text-white/90 mt-2"
+              style={{ textShadow: '0 2px 15px rgba(0,0,0,0.7)' }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8 }}
             >
-              {/* Glow behind teddy */}
-              <div 
-                className="absolute inset-0 blur-3xl opacity-40 -z-10"
-                style={{
-                  background: 'radial-gradient(circle, rgba(255, 180, 120, 0.5) 0%, transparent 70%)',
-                  transform: 'scale(1.3)'
-                }}
-              />
-              
-              {/* Teddy Bear Image */}
-              <motion.div
-                animate={!reducedMotion ? { y: [0, -8, 0] } : {}}
-                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-              >
-                <img
-                  src={TEDDY_IMAGE}
-                  alt="Teddy bear holding a heart"
-                  className="w-72 h-72 sm:w-96 sm:h-96 md:w-[480px] md:h-[480px] object-cover rounded-3xl"
-                  style={{
-                    boxShadow: '0 30px 80px rgba(0,0,0,0.5), 0 0 100px rgba(255, 107, 107, 0.1)'
-                  }}
-                />
-                
-                {/* Envelope on teddy */}
-                <motion.div
-                  className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 cursor-pointer"
-                  onClick={handleEnvelopeClick}
-                  whileHover={{ scale: 1.08, y: -5 }}
-                  whileTap={{ scale: 0.95 }}
-                  role="button"
-                  aria-label="Click to open Valentine's letter"
-                  tabIndex={0}
-                  onKeyDown={(e) => e.key === 'Enter' && handleEnvelopeClick()}
-                  data-testid="envelope-button"
-                >
-                  {/* Envelope body */}
-                  <div 
-                    className="relative w-28 sm:w-36 h-18 sm:h-22 rounded-md"
-                    style={{
-                      width: '140px',
-                      height: '90px',
-                      background: 'linear-gradient(145deg, #FFF8E7 0%, #F5E6D3 100%)',
-                      boxShadow: '0 8px 30px rgba(0,0,0,0.4)'
-                    }}
-                  >
-                    {/* Envelope flap */}
-                    <div 
-                      className="absolute -top-8 left-1/2 -translate-x-1/2"
-                      style={{
-                        width: 0,
-                        height: 0,
-                        borderLeft: '70px solid transparent',
-                        borderRight: '70px solid transparent',
-                        borderTop: '50px solid #E8D5C4'
-                      }}
-                    />
-                    
-                    {/* Heart seal */}
-                    <motion.div
-                      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                      animate={{ scale: [1, 1.15, 1] }}
-                      transition={{ duration: 1.5, repeat: Infinity }}
-                    >
-                      <svg viewBox="0 0 24 24" fill="#E74C3C" className="w-7 h-7 drop-shadow-lg">
-                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                      </svg>
-                    </motion.div>
-                  </div>
-                  
-                  {/* Click me text */}
-                  <span 
-                    className="absolute -bottom-7 left-1/2 -translate-x-1/2 font-script text-lg sm:text-xl text-white/90 whitespace-nowrap"
-                    style={{ textShadow: '0 2px 10px rgba(0,0,0,0.6)' }}
-                  >
-                    Click me
-                  </span>
-                </motion.div>
-              </motion.div>
-            </motion.div>
+              Click the envelope
+            </motion.p>
             
             {/* Hint */}
             <motion.p
-              className="absolute bottom-6 sm:bottom-10 font-body text-sm text-white/50 bg-black/30 backdrop-blur-sm px-5 py-2.5 rounded-full"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 2 }}
+              className="font-body text-sm text-white/40 mt-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.5 }}
             >
-              Tap the envelope 💕
+              Tap the teddy 💕
             </motion.p>
 
             {/* Skip button */}
@@ -253,7 +178,7 @@ function App() {
               onClick={handleEnvelopeClick}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 2.5 }}
+              transition={{ delay: 2 }}
               data-testid="skip-button"
             >
               Skip
