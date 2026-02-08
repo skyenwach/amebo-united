@@ -3,20 +3,27 @@ import * as THREE from 'three';
 
 export function TeddyScene3D({ onTeddyClick }) {
   const containerRef = useRef(null);
-  const sceneRef = useRef(null);
+  const rendererRef = useRef(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     if (!containerRef.current) return;
+    
+    // Wait for container to have size
+    const initScene = () => {
+      const container = containerRef.current;
+      if (!container || container.clientWidth === 0 || container.clientHeight === 0) {
+        requestAnimationFrame(initScene);
+        return;
+      }
 
     // Scene setup
     const scene = new THREE.Scene();
-    sceneRef.current = scene;
 
     // Camera
     const camera = new THREE.PerspectiveCamera(
       45,
-      containerRef.current.clientWidth / containerRef.current.clientHeight,
+      container.clientWidth / container.clientHeight,
       0.1,
       1000
     );
@@ -28,9 +35,10 @@ export function TeddyScene3D({ onTeddyClick }) {
       antialias: true, 
       alpha: true 
     });
-    renderer.setSize(containerRef.current.clientWidth, containerRef.current.clientHeight);
+    renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    containerRef.current.appendChild(renderer.domElement);
+    container.appendChild(renderer.domElement);
+    rendererRef.current = renderer;
 
     // Lighting
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
