@@ -124,19 +124,19 @@ export function TeddyScene3D({ onTeddyClick }) {
     const earInnerGeometry = new THREE.SphereGeometry(0.15, 16, 16);
     
     const leftEar = new THREE.Mesh(earGeometry, furMaterial);
-    leftEar.position.set(-0.55, 1.95, 0);
+    leftEar.position.set(-0.55, 1.95, 0.15);
     teddyGroup.add(leftEar);
     
     const leftEarInner = new THREE.Mesh(earInnerGeometry, furDarkMaterial);
-    leftEarInner.position.set(-0.55, 1.95, 0.1);
+    leftEarInner.position.set(-0.55, 1.95, 0.25);
     teddyGroup.add(leftEarInner);
     
     const rightEar = new THREE.Mesh(earGeometry, furMaterial);
-    rightEar.position.set(0.55, 1.95, 0);
+    rightEar.position.set(0.55, 1.95, 0.15);
     teddyGroup.add(rightEar);
     
     const rightEarInner = new THREE.Mesh(earInnerGeometry, furDarkMaterial);
-    rightEarInner.position.set(0.55, 1.95, 0.1);
+    rightEarInner.position.set(0.55, 1.95, 0.25);
     teddyGroup.add(rightEarInner);
 
     // Eyes
