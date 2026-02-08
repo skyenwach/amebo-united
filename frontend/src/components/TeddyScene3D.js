@@ -20,7 +20,8 @@ export function TeddyScene3D({ onTeddyClick }) {
       0.1,
       1000
     );
-    camera.position.set(0, 1.2, 6);
+    camera.position.set(0, 0.8, 5.8);
+    camera.lookAt(0, 0.5, 0);
 
     // Renderer
     const renderer = new THREE.WebGLRenderer({ 
