@@ -7,7 +7,7 @@ const InteractiveBearImage = ({ onHeartClick, isHovering }) => {
   const imageRef = useRef(null);
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
   const targetRotationRef = useRef({ x: 0, y: 0 });
-  let animationId;
+  const animationIdRef = useRef(null);
 
   // Handle mouse move for rotation
   useEffect(() => {
@@ -39,11 +39,15 @@ const InteractiveBearImage = ({ onHeartClick, isHovering }) => {
         targetRotationRef.current.y += 0.002;
       }
 
-      animationId = requestAnimationFrame(animate);
+      animationIdRef.current = requestAnimationFrame(animate);
     };
 
-    animationId = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animationId);
+    animationIdRef.current = requestAnimationFrame(animate);
+    return () => {
+      if (animationIdRef.current) {
+        cancelAnimationFrame(animationIdRef.current);
+      }
+    };
   }, [isHovering]);
 
   return (
