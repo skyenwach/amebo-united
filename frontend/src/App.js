@@ -268,30 +268,27 @@ function App() {
                       ))}
                     </motion.div>
 
-                    {/* Question Text with typewriter effect */}
-                    <div className="text-center mb-8">
+                    {/* Question Text - instant display */}
+                    <motion.div 
+                      className="text-center mb-8"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.5 }}
+                    >
                       <h1 className="font-script text-3xl sm:text-4xl md:text-5xl text-[#5D4037] leading-tight mb-4">
-                        <Typewriter
-                          text={`${CONFIG.GIRLFRIEND_NAME}, my love,`}
-                          delay={400}
-                          speed={30}
-                        />
+                        {CONFIG.GIRLFRIEND_NAME}, my love,
                       </h1>
                       <h2 className="font-script text-2xl sm:text-3xl md:text-4xl text-[#E74C3C]">
-                        <Typewriter
-                          text="will you be my Valentine?"
-                          delay={1200}
-                          speed={25}
-                        />
+                        will you be my Valentine?
                       </h2>
-                    </div>
+                    </motion.div>
 
                     {/* Yes/No Buttons - ON THE PAPER */}
                     <motion.div
                       className="flex flex-col items-center gap-4 mb-6"
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 2.5 }}
+                      transition={{ delay: 0.7 }}
                       data-testid="valentine-buttons"
                     >
                       {/* Yes Button */}
