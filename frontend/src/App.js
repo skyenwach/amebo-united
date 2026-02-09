@@ -220,7 +220,7 @@ function App() {
               }}
               animate={{ scaleY: 1, scaleX: 1, rotateX: 0, y: 0, opacity: 1 }}
               transition={{
-                duration: reducedMotion ? 0.1 : 0.8,
+                duration: reducedMotion ? 0.1 : 0.4,
                 ease: [0.34, 1.56, 0.64, 1],
               }}
               style={{ transformOrigin: "center top", perspective: "1000px" }}
@@ -273,15 +273,15 @@ function App() {
                       <h1 className="font-script text-3xl sm:text-4xl md:text-5xl text-[#5D4037] leading-tight mb-4">
                         <Typewriter
                           text={`${CONFIG.GIRLFRIEND_NAME}, my love,`}
-                          delay={1000}
-                          speed={80}
+                          delay={400}
+                          speed={30}
                         />
                       </h1>
                       <h2 className="font-script text-2xl sm:text-3xl md:text-4xl text-[#E74C3C]">
                         <Typewriter
                           text="will you be my Valentine?"
-                          delay={2500}
-                          speed={70}
+                          delay={1200}
+                          speed={25}
                         />
                       </h2>
                     </div>
@@ -291,7 +291,7 @@ function App() {
                       className="flex flex-col items-center gap-4 mb-6"
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 4.5 }}
+                      transition={{ delay: 2.5 }}
                       data-testid="valentine-buttons"
                     >
                       {/* Yes Button */}
@@ -314,9 +314,10 @@ function App() {
                           initial={{ x: "-100%" }}
                           animate={{ x: "200%" }}
                           transition={{
-                            duration: 2,
+                            duration: 1.5,
                             repeat: Infinity,
-                            repeatDelay: 1,
+                            repeatDelay: 2,
+                            ease: "linear"
                           }}
                         >
                           <div
